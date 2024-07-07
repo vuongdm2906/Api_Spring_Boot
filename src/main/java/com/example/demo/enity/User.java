@@ -8,38 +8,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDate;
 
-@Entity
-@Getter
-@Setter
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
 public class User {
 
-    @Id
-    @UuidGenerator
-    @Column(name = "id")
-    private String id ;
+    private Long id ;
 
-    @Column(name = "username")
+    private String email ;
+
     private String username ;
 
-    @Column(name = "fullname")
-    private String firstName ;
-
-    @Column(name = "password")
     private String password ;
 
-    @Column(name = "dob")
-    private String  dob ;
+    private String createdAt ;
 
-
-
+    private String updatedAt ;
 }
