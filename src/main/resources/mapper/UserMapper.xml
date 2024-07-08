@@ -6,5 +6,26 @@
         SELECT * FROM tn_user WHERE id = #{id};
     </select>
 
+    <select id="getAll" resultType="com.example.demo.dto.request.userRequest">
+        SELECT id, email, username, "password", created_at, updated_at
+        FROM public.tn_user;
+    </select>
 
+
+    <select id="addUser" resultType="com.example.demo.dto.request.userRequest">
+        INSERT INTO public.tn_user
+            ( id, email, username, "password", created_at, updated_at)
+        VALUES( #{id},#{email}, #{username}, #{password} ,now(), now());
+    </select>
+
+    <select id="updateUser" resultType="com.example.demo.dto.request.userRequest">
+        UPDATE public.tn_user
+        SET email=#{email}, username= #{username}, "password"= #{password} , created_at=now(), updated_at=now()
+        WHERE id= #{id};
+    </select>
+
+    <select id="deleteUser" resultType="com.example.demo.dto.request.userRequest">
+        DELETE FROM public.tn_user
+        WHERE id=#{id};
+    </select>
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,16 +20,34 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {
 
     final UserService userService;
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("{userId}")
     public ResponseEntity<?> getUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.getOne(userId));
+    }
+    @GetMapping("list")
+    public ResponseEntity<?> getAll(User user ){
+        return ResponseEntity.ok(userService.getAll(user));
+    }
 
 
+    @PostMapping("add")
+    public ResponseEntity<?> addUser( @RequestBody User user){
+        return ResponseEntity.ok(userService.addUser(user));
+    }
+
+    @PutMapping("update/{userId}")
+    public ResponseEntity<?> updateUser( @PathVariable("userId") Long id  ,  @RequestBody User user){
+        return ResponseEntity.ok(userService.updateUser(id,user));
+    }
+
+    @DeleteMapping("delete/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long id  ){
+        return ResponseEntity.ok(userService.deleteUser(id));
     }
 }

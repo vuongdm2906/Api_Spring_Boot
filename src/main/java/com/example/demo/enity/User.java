@@ -19,8 +19,8 @@ public class User {
 
     private String password ;
 
-    private String createdAt ;
+    private String created_at ;
 
-    private String updatedAt ;
+    private String updated_at ;
 
 }
