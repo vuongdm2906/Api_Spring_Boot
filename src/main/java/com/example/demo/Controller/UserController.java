@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
+import com.example.demo.dto.request.PagingRequest;
 import com.example.demo.dto.request.userRequest;
 import com.example.demo.dto.request.userUpdateRequest;
+import com.example.demo.enity.Paging;
 import com.example.demo.enity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
@@ -30,11 +32,10 @@ public class UserController {
     public ResponseEntity<?> getUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.getOne(userId));
     }
-    @GetMapping("list")
-    public ResponseEntity<?> getAll(User user ){
-        return ResponseEntity.ok(userService.getAll(user));
-    }
-
+//    @GetMapping("list")
+//    public ResponseEntity<?> getAll( @RequestBody User user ){
+//        return ResponseEntity.ok(userService.getAll(user));
+//    }
 
     @PostMapping("add")
     public ResponseEntity<?> addUser( @RequestBody User user){
@@ -44,6 +45,12 @@ public class UserController {
     @PutMapping("update/{userId}")
     public ResponseEntity<?> updateUser( @PathVariable("userId") Long id  ,  @RequestBody User user){
         return ResponseEntity.ok(userService.updateUser(id,user));
+    }
+
+    @PostMapping("/paging")
+    public ResponseEntity<PagingRequest<userRequest>> getAll(@RequestBody Paging paging) {
+        PagingRequest<userRequest> response = userService.getAll(paging);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("delete/{userId}")

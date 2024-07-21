@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.request.PagingRequest;
 import com.example.demo.dto.request.userRequest;
+import com.example.demo.enity.Paging;
 import com.example.demo.enity.User;
 import com.example.demo.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<userRequest> getAll(User user) {
-        return userMapper.getAll(user);
+    public PagingRequest<userRequest> getAll(Paging paging) {
+        int offset = (paging.getCurrentPage() - 1) * paging.getPageSize();
+        paging.setOffset(offset);
+
+        List<userRequest> userDtos = userMapper.getAll(paging);
+        long total = userMapper.countUsers();
+
+        paging.setData(userDtos);
+        paging.setTotal(total);
+
+        PagingRequest pagingRequest = new PagingRequest();
+        pagingRequest.setCurrentPage(paging.getCurrentPage());
+        pagingRequest.setPageSize(paging.getPageSize());
+        pagingRequest.setTotal(paging.getTotal());
+        pagingRequest.setData(paging.getData());
+        return pagingRequest;
     }
 
 

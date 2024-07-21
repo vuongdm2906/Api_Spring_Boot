@@ -23,8 +23,5 @@ public class userRequest {
 
     private String passwork;
 
-    private String created_at;
-
-    private String updated_at;
 
 }

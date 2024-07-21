@@ -6,9 +6,9 @@
         SELECT * FROM tn_user WHERE id = #{id};
     </select>
 
-    <select id="getAll" resultType="com.example.demo.dto.request.userRequest">
-        SELECT id, email, username, "password", created_at, updated_at
-        FROM public.tn_user;
+    <select id="getAllUsers" resultType="com.example.demo.dto.request.userRequest">
+        SELECT * FROM tn_user
+                          LIMIT #{getPaging.pageSize} OFFSET #{getPaging.offset};
     </select>
 
 
@@ -27,5 +27,16 @@
     <select id="deleteUser" resultType="com.example.demo.dto.request.userRequest">
         DELETE FROM public.tn_user
         WHERE id=#{id};
+    </select>
+
+    <select id="selectEmployees" parameterType="map" resultType="com.example.demo.dto.request.userRequest">
+        SELECT *
+        FROM employees
+        ORDER BY employee_id
+            LIMIT #{pageSize} OFFSET #{offset};
+    </select>
+
+    <select id="countUsers" resultType="long">
+        SELECT COUNT(*) FROM tn_user;
     </select>
 </mapper>
